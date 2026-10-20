@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Realidad aumentada con MindAR</title>
+
+  <!-- Librería A-Frame -->
+  https://aframe.io/releases/1.5.0/aframe.min.jsscript>
+
+  <!-- Permite reproducir animaciones incluidas en modelos GLB -->
+  https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v7.0.0/dist/aframe-extras.min.jsscript>
+
+  <!-- Librería MindAR para seguimiento de imágenes -->
+  https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.jsscript>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .mensaje {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      width: 85%;
+      max-width: 450px;
+      padding: 12px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="mensaje">
+    Permite el acceso a la cámara y apunta hacia la imagen objetivo.
+  </div>
+
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind;"
+    color-space="sRGB"
+    renderer="colorManagement: true; physicallyCorrectLights: true;"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false"
+    embedded
+  >
+
+    <!-- Archivos que utilizará la escena -->
+    <a-assets>
+      ./modelo.glb
+      </a-asset-item>
+    </a-assets>
+
+    <!-- Iluminación -->
+    <a-light
+      type="ambient"
+      color="#ffffff"
+      intensity="1">
+    </a-light>
+
+    <a-light
+      type="directional"
+      color="#ffffff"
+      intensity="1"
+      position="1 2 1">
+    </a-light>
+
+    <!-- Cámara del dispositivo -->
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false">
+    </a-camera>
+
+    <!-- Imagen objetivo número 0 -->
+    <a-entity mindar-image-target="targetIndex: 0">
+
+      <!-- Modelo 3D -->
+      #modelo3d
+
+        <!-- Animación flotante -->
+        <a-animation
+          attribute="position"
+          from="0 0 0.1"
+          to="0 0.15 0.1"
+          direction="alternate"
+          dur="1500"
+          repeat="indefinite">
+        </a-animation>
+
+      </a-gltf-model>
+
+    </a-entity>
+
+  </a-scene>
+
+</body>
+</html>
